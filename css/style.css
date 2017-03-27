@@ -1,0 +1,40 @@
+* { text-align: left;
+}
+
+p
+ {
+	font-family: 'Special Elite', cursive;
+	font-size: 25px;
+    text-shadow: -1px 0 beige, 0 1px beige, 1px 0 beige, 0 -1px beige;
+	line-height: 50px
+}
+ 
+p1 {
+	font-family: 'Special Elite', cursive;
+	color: red;
+	font-size: 25px;
+	text-shadow: -1px 0 beige, 0 1px beige, 1px 0 beige, 0 -1px beige;
+	line-height: 50px
+}
+
+.section1 {
+	padding: 20px;
+}
+
+right {
+	margin-top: -280px;
+	float: right;
+}
+
+html { 
+background: url(http://www.newyorker.com/wp-content/uploads/2016/08/Rothman-TheInfiniteNostalgiaofStrangerThings-1200.jpg) no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+#page-wrap { width: 400px; margin: 50px auto; padding: 20px; background: white; -moz-box-shadow: 0 0 20px black; -webkit-box-shadow: 0 0 20px black; box-shadow: 0 0 20px black; }
+        
+audio { 
+   display:none;
+}

@@ -1,74 +1,95 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Rock Paper Scissors Part 9</title>
-  </head>
-  <body>
+<html>
+<head>
+	<title>Kristen's Psychic Game</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css" media="screen"/>
+	<link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
+</head>
+<body>
 
-    <!-- When we start playing the game, our HTML will be placed into this div. -->
-    <div id="game">
-      <p>Press r, p or s to start playing!</p>
-    </div>
+<!-- This is where the code will go that we created. -->
+<div id="game" class=section1>
+	<p>Guess what letter I'm thinking of...</p>
+	<p>Wins: 0</p>
+	<p>Losses: 0</p>
+	<p>Starting Guesses: 10</p>
+	<p>Your Guesses: </p>
+</div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-      // Our array of possible computer choices.
-      var computerChoices = ["r", "p", "s"];
+alert("Psst...");
+var userQuestion = prompt("Can you guess what I'm thinking?");
+alert("I knew you'd say " + userQuestion + "!");
+alert("NOW GUESS!!!")
 
-      // Variables for tracking our wins, losses and ties. They begin at 0.
-      var wins = 0;
-      var losses = 0;
-      var ties = 0;
+// The computer's choices = A-Z
+var computerChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-      // When the user presses a key, it will run the following function...
-      document.onkeyup = function(event) {
+// Score and Letter Tracker/Variables 
+var wins = 0;
+var losses = 0;
+var guessCount = 10;
+var userGuessTally = [];
+var setComputerPick = "";
 
-        // Determine which key was pressed
-        var userGuess = event.key;
+// Records and stores user's keyUp input. 
+document.onkeyup = function(e) {
+	var userPick = String.fromCharCode(event.keyCode).toLowerCase();
+	
+	// Inital Computer Guess Setting
+	if (guessCount == 10) {
+		var computerPick = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+		setComputerPick = computerPick;
+	}
 
-        // Sets the computerGuess variable equal to a random choice from the computerChoice array.
-        var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+	// Run game if UserGuessTally isn't listed
+	var userCheck = userGuessTally.indexOf(userPick);
+	if (userCheck < 0){
+			
+		if (userPick == setComputerPick){
 
-        // If the user presses "r" or "p" or "s", run the game logic.
-        if ((userGuess === "r") || (userGuess === "p") || (userGuess === "s")) {
+			// the User's Guess equals the Computer's guess, the User wins. The game will then reset. 
+			wins++;
+			guessCount = 10;
+			userGuessTally = [];
+		}else{
+			// If the User doesn't guess correctly, then the Remaining Guesses (userGuessTally) will be reduced by one. 
+			userGuessTally.push(userPick);
+			guessCount--;
+		}
+		
+	}
 
-          // This logic determines the outcome of the game (win/loss/tie), and increments the appropriate counter.
-          if ((userGuess === "r") && (computerGuess === "s")) {
-            wins++;
-          }
-          else if ((userGuess === "r") && (computerGuess === "p")) {
-            losses++;
-          }
-          else if ((userGuess === "s") && (computerGuess === "r")) {
-            losses++;
-          }
-          else if ((userGuess === "s") && (computerGuess === "p")) {
-            wins++;
-          }
-          else if ((userGuess === "p") && (computerGuess === "r")) {
-            wins++;
-          }
-          else if ((userGuess === "p") && (computerGuess === "s")) {
-            losses++;
-          }
-          else if (userGuess === computerGuess) {
-            ties++;
-          }
+	// If the guessCount is equal to 0, add a loss, then reset game
+	if (guessCount == 0) {
+		losses++;
+		guessCount = 10;
+		userGuessTally = [];
+	}				
+		
+		// Display the scores in HTML
+		var html = "<p>Try again...</p>" +
+		"<p>Wins: " + 
+		wins + 
+		"</p>" +
+		"<p>Losses: " + 
+		losses + 
+		"</p>" +
+		"<p1>Number of Remaining Guesses: " + 
+		guessCount + 
+		"</p1>" +
+		"<p>Your Guesses: " + 
+		userGuessTally + 
+		"</p>";
 
-          // Here we create the HTML that will be injected into our div and displayed on the page.
-          var html = "<p>Press r, p or s to start playing!</p>" +
-          "<p>wins: " + wins + "</p>" +
-          "<p>losses: " + losses + "</p>" +
-          "<p>ties: " + ties + "</p>";
+		document.querySelector('#game').innerHTML = html;
+}
 
-          // Injecting the HTML we just created into our div and updating the game information on our page.
-          document.getElementById("game").innerHTML = html;
 
-        }
-      };
-
-    </script>
-
-  </body>
+</script>
+<!-- Background music! Not stoppable >:) -->
+	<audio autoplay="true" src="https://ia800204.us.archive.org/1/items/Fy-MusicBoxTheme/Untitled1_64kb.mp3">
+</body>
 </html>
